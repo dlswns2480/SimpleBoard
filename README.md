@@ -16,3 +16,6 @@
 <p>Lombok</p>
 <p>Thymeleaf</p>
 
+<h3>:raised_hands:IDE</h3>
+<p>IntelliJ</p>
+
