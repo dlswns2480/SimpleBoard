@@ -23,7 +23,7 @@ public class BoardController {
     @PostMapping("/board/writepro")
     public String boardWritePro(Board board){
         boardService.write(board);
-        return "";
+        return "message";
     }
 
     @GetMapping("/board/list")
