@@ -4,14 +4,23 @@ import com.study.board.entity.Board;
 import com.study.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
-    public void write(Board board){
+    public void write(Board board, MultipartFile file) throws  Exception{
+        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+        UUID uuid = UUID.randomUUID();
+        String filename = uuid + "_" + file.getOriginalFilename();
+        File saveFile = new File(projectPath, filename); //projectPath에 filename이란 이름으로 저장
+        file.transferTo(saveFile);
+
         boardRepository.save(board);
     }
 
