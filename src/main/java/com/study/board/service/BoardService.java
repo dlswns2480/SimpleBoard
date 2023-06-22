@@ -34,6 +34,10 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
+    public Page<Board> boardSearch(String searchKeword, Pageable pageable){
+        return boardRepository.findByTitleContaining(searchKeword, pageable);
+    }
+
     public Board boardView(Integer id){
         return boardRepository.findById(id).get();
     }
