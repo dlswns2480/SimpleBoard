@@ -38,12 +38,15 @@ public class BoardController {
     public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC)Pageable pageable){
         Page<Board> list = boardService.boardList(pageable);
 
-        int nowPage = list.getPageable().getPageNumber(); // ex) 현재 페이지가 5면
+        int nowPage = list.getPageable().getPageNumber() + 1; // ex) 현재 페이지가 5면
         int startPage = Math.max(nowPage - 4, 1); //ex) 시작페이지 1부터
         int endPage = Math.min(nowPage + 5, list.getTotalPages()); // 10페이지까지 보여줌
 
 
         model.addAttribute("list", list); //board에 있는 데이터들을 "list"라는 이름에 담아서 보내겠다.
+        model.addAttribute("nowPage", nowPage); //board에 있는 데이터들을 "list"라는 이름에 담아서 보내겠다.
+        model.addAttribute("startPage", startPage); //board에 있는 데이터들을 "list"라는 이름에 담아서 보내겠다.
+        model.addAttribute("endPage", endPage); //board에 있는 데이터들을 "list"라는 이름에 담아서 보내겠다.
         return "boardlist";
     }
 
