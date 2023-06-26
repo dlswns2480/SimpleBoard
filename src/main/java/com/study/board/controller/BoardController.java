@@ -35,9 +35,16 @@ public class BoardController {
     }
 
     @GetMapping("/board/list")
-    public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC)Pageable pageable){
-        Page<Board> list = boardService.boardList(pageable);
+    public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort = "id",
+            direction = Sort.Direction.DESC) Pageable pageable, String searchKeyword){
+        Page<Board> list = null;
 
+        if(searchKeyword == null){
+            list = boardService.boardList(pageable);
+        }
+        else{
+            list = boardService.boardSearch(searchKeyword, pageable);
+        }
         int nowPage = list.getPageable().getPageNumber() + 1; // ex) 현재 페이지가 5면
         int startPage = Math.max(nowPage - 4, 1); //ex) 시작페이지 1부터
         int endPage = Math.min(nowPage + 5, list.getTotalPages()); // 10페이지까지 보여줌
@@ -60,6 +67,11 @@ public class BoardController {
     @GetMapping("/board/delete")
     public String boardDelete(Integer id){
         boardService.boardDelete(id);
+        return "redirect:/board/list";
+    }
+    @GetMapping("/board/deleteall")
+    public String boardDeleteAll(){
+        boardService.boardDeleteAll();
         return "redirect:/board/list";
     }
 
