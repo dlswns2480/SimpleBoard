@@ -47,6 +47,10 @@ public class BoardService {
         boardRepository.deleteById(id);
     }
 
-    public void boardDeleteAll(){ boardRepository.deleteAll();}
+    public void boardDeleteAll() {
+        boardRepository.deleteAll();// Reset the auto-increment counter and initialize ID column
+//
+    }
+
 
 }
